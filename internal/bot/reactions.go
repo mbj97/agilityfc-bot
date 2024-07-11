@@ -75,7 +75,7 @@ func (b *Bot) handleRunnerApprovalReaction(s *discordgo.Session, r *discordgo.Me
 }
 
 func (b *Bot) handleRunnerRequestReaction(s *discordgo.Session, r *discordgo.MessageReactionAdd) {
-	if r.MessageID == b.cfg.RunnerRequestSpecificMessageID && r.Emoji.Name == "👍" {
+	if r.MessageID == b.cfg.RunnerRequestSpecificMessageID {
 		log.Printf("Reaction added: %s by %s on %s", r.Emoji.Name, r.UserID, r.MessageID)
 
 		messageContent := "<@" + r.UserID + "> has requested to become a runner. " +
