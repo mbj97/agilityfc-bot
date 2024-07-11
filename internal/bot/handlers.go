@@ -34,6 +34,17 @@ func (b *Bot) messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 }
 
 func (b *Bot) handleAntiPkRequest(s *discordgo.Session, m *discordgo.MessageCreate, step string) {
+	channel, err := s.State.Channel(m.ChannelID)
+	if err != nil {
+		log.Printf("Error getting channel: %v", err)
+		return
+	}
+
+	if channel.Type != discordgo.ChannelTypeDM {
+		// Ignore non-DM messages
+		return
+	}
+
 	switch step {
 	case "question1":
 		userResponses[m.Author.ID] = append(userResponses[m.Author.ID], m.Content)
