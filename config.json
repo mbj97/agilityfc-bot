@@ -1,0 +1,13 @@
+{
+    "token": "BOT_TOKEN_HERE",
+    "runner_request_channel_id": "1259640130134741193",
+    "runner_request_specific_message_id": "1259640782063800442",
+    "anti_pk_request_message_id": "1260423532484100177",
+    "anti_pk_response_channel_id": "1260423236189950045",
+    "check_mark_emoji": "✅",
+    "red_x_emoji": "❌",
+    "runner_role_id": "1259637818742018128",
+    "member_role_id": "1259626421408501810",
+    "data_file_path": "data.json",
+    "anti_pk_response_data_file_path": "pkresponses.json"
+}
