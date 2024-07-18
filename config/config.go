@@ -14,7 +14,8 @@ type Config struct {
 	CheckMarkEmoji                 string `json:"check_mark_emoji"`
 	RedXEmoji                      string `json:"red_x_emoji"`
 	RunnerRoleID                   string `json:"runner_role_id"`
-    MemberRoleID                   string `json:"member_role_id"`
+	MemberRoleID                   string `json:"member_role_id"`
+	NonMemberRoleID                string `json:"non_member_role_id"`
 	DataFilePath                   string `json:"data_file_path"`
 	AntiPkResponseDataFilePath     string `json:"anti_pk_response_data_file_path"`
 }

@@ -8,6 +8,7 @@
     "red_x_emoji": "❌",
     "runner_role_id": "1259637818742018128",
     "member_role_id": "1263294757480960162",
+    "non_member_role_id": "1263605280210550806",
     "data_file_path": "data.json",
     "anti_pk_response_data_file_path": "pkresponses.json"
 }
