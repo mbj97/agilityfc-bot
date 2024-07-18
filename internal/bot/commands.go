@@ -11,7 +11,7 @@ var (
     commands = []*discordgo.ApplicationCommand{
         {
             Name:        "setname",
-            Description: "Set your OSRS name and get added to Runner role",
+            Description: "Set your OSRS name and get added to Member role",
             Options: []*discordgo.ApplicationCommandOption{
                 {
                     Type:        discordgo.ApplicationCommandOptionString,
@@ -36,7 +36,6 @@ var (
                     Type: discordgo.InteractionResponseChannelMessageWithSource,
                     Data: &discordgo.InteractionResponseData{
                         Content: "Failed to change nickname. Please check my permissions.",
-                        Flags:   64, // Private response
                     },
                 })
                 return
@@ -50,7 +49,6 @@ var (
                     Type: discordgo.InteractionResponseChannelMessageWithSource,
                     Data: &discordgo.InteractionResponseData{
                         Content: "Nickname changed, but failed to add role. Please check my permissions.",
-                        Flags:   64, // Private response
                     },
                 })
                 return
@@ -59,8 +57,7 @@ var (
             s.InteractionRespond(i.Interaction, &discordgo.InteractionResponse{
                 Type: discordgo.InteractionResponseChannelMessageWithSource,
                 Data: &discordgo.InteractionResponseData{
-                    Content: "Thanks for registering your name! Now go to <#1259636963149873244> to gain full access to the Discord",
-                    Flags:   64, // Private response
+                    Content: "Thanks for registering! You should have full access to the server now",
                 },
             })
 
@@ -71,7 +68,7 @@ var (
                 return
             }
 
-            _, err = s.ChannelMessageSend(channel.ID, "Your OSRS name has been set to "+accountName+" and you have been added to the Runner role.")
+            _, err = s.ChannelMessageSend(channel.ID, "Your OSRS name has been set to "+accountName+".")
             if err != nil {
                 log.Printf("Error sending DM: %v", err)
             }
