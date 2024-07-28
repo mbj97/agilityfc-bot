@@ -2,8 +2,8 @@ package bot
 
 import (
 	"agilityfc-bot/config"
+	"agilityfc-bot/internal/utils"
 	"log"
-	"time"
 
 	"github.com/bwmarrin/discordgo"
 )
@@ -42,8 +42,10 @@ var (
 				return
 			}
 
-			if checkAccountAge(i.Member.User.ID, 2) {
-				// Add the user to the Member role
+
+			// Minimum Days for Account to Be Allowed In
+			const MIN_ACCT_AGE = 2
+			if utils.CheckAccountAge(i.Member.User.ID, MIN_ACCT_AGE) {
 				err = s.GuildMemberRoleAdd(i.GuildID, i.Member.User.ID, config.MemberRoleID)
 				if err != nil {
 					log.Printf("Error adding role: %v", err)
@@ -76,7 +78,6 @@ var (
 				},
 			})
 
-			// Send a direct message to the user
 			channel, err := s.UserChannelCreate(i.Member.User.ID)
 			if err != nil {
 				log.Printf("Error creating DM channel: %v", err)
@@ -90,12 +91,3 @@ var (
 		},
 	}
 )
-
-func checkAccountAge(userID string, minDays int) bool {
-	createdAt, err := discordgo.SnowflakeTimestamp(userID)
-	if err != nil {
-		return false
-	}
-	accountAge := time.Since(createdAt).Hours() / 24
-	return accountAge >= float64(minDays)
-}
