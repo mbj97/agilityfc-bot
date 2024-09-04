@@ -2,6 +2,7 @@ package bot
 
 import (
 	"agilityfc-bot/config"
+	"agilityfc-bot/globalvars"
 	"agilityfc-bot/internal/utils"
 	"log"
 
@@ -44,8 +45,7 @@ var (
 
 
 			// Minimum Days for Account to Be Allowed In
-			const MIN_ACCT_AGE = 2
-			if utils.CheckAccountAge(i.Member.User.ID, MIN_ACCT_AGE) {
+			if utils.CheckAccountAge(i.Member.User.ID, globalvars.MIN_ACCT_AGE) {
 				err = s.GuildMemberRoleAdd(i.GuildID, i.Member.User.ID, config.MemberRoleID)
 				if err != nil {
 					log.Printf("Error adding role: %v", err)

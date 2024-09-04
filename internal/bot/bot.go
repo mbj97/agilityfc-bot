@@ -69,3 +69,8 @@ func (b *Bot) interactionCreate(s *discordgo.Session, i *discordgo.InteractionCr
         handler(s, i, b.cfg)
     }
 }
+
+func (b *Bot) SendMessage(channelID, message string) error {
+    _, err := b.session.ChannelMessageSend(channelID, message)
+    return err
+}

@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"agilityfc-bot/config"
+	"agilityfc-bot/globalvars"
 
 	"github.com/bwmarrin/discordgo"
 )
@@ -22,7 +22,7 @@ type RequestData struct {
 }
 
 func init() {
-	file, err := os.Open(config.RUNNER_REQUEST_DATA_FILE)
+	file, err := os.Open(globalvars.RUNNER_REQUEST_DATA_FILE)
 	if err == nil {
 		defer file.Close()
 		decoder := json.NewDecoder(file)
@@ -35,7 +35,7 @@ func init() {
 	}
 
 	// Load anti-pk response data from JSON file
-	file, err = os.Open(config.ANTI_PK_RESPONSE_DATA_FILE)
+	file, err = os.Open(globalvars.ANTI_PK_RESPONSE_DATA_FILE)
 	if err == nil {
 		defer file.Close()
 		decoder := json.NewDecoder(file)
@@ -130,7 +130,7 @@ func (b *Bot) handleAntiPkRequestReaction(s *discordgo.Session, r *discordgo.Mes
 }
 
 func saveRunnerRequestData() {
-	file, err := os.Create(config.RUNNER_REQUEST_DATA_FILE)
+	file, err := os.Create(globalvars.RUNNER_REQUEST_DATA_FILE)
 	if err != nil {
 		log.Printf("Error creating JSON file: %v", err)
 		return
@@ -145,7 +145,7 @@ func saveRunnerRequestData() {
 }
 
 func saveAntiPkResponseData() {
-	file, err := os.Create(config.ANTI_PK_RESPONSE_DATA_FILE)
+	file, err := os.Create(globalvars.ANTI_PK_RESPONSE_DATA_FILE)
 	if err != nil {
 		log.Printf("Error creating JSON file: %v", err)
 		return

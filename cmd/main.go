@@ -1,26 +1,40 @@
 package main
 
 import (
-    "log"
-    "agilityfc-bot/config"
-    "agilityfc-bot/internal/bot"
+	"agilityfc-bot/config"
+	"agilityfc-bot/internal/bot"
+	"agilityfc-bot/internal/dynamo"
+	"agilityfc-bot/internal/server"
+	"fmt"
+	"os"
 )
 
 func main() {
     cfg, err := config.LoadConfig("config.json")
     if err != nil {
-        log.Fatalf("Error loading config: %v", err)
+        fmt.Println("Error loading config:", err)
+        os.Exit(1)
+    }
+
+    dynamoService, err := dynamo.NewDynamoDBService()
+    if err != nil {
+        fmt.Println("Error initializing DynamoDB service:", err)
+        os.Exit(1)
     }
 
     discordBot, err := bot.NewBot(cfg)
     if err != nil {
-        log.Fatalf("Error creating bot: %v", err)
+        fmt.Println("Error creating bot:", err)
+        os.Exit(1)
     }
 
-    err = discordBot.Start()
-    if err != nil {
-        log.Fatalf("Error starting bot: %v", err)
-    }
+    go func() {
+        if err := discordBot.Start(); err != nil {
+            fmt.Println("Error starting bot:", err)
+            os.Exit(1)
+        }
+    }()
 
-    discordBot.Wait()
+    srv := server.NewServer(discordBot, dynamoService)
+    srv.StartHTTPServer()
 }
